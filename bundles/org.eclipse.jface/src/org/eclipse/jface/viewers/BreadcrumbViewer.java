@@ -731,7 +731,22 @@ public abstract class BreadcrumbViewer extends StructuredViewer {
 
 		super.handleDispose(event);
 	}
-	
+
+	/**
+	 * Returns whether the given element can be opened directly.
+	 * <p>
+	 * Subclasses may override this method to define which elements can be opened.
+	 * The default implementation returns {@code false}.
+	 * </p>
+	 *
+	 * @param element the element to check
+	 * @return {@code true} if the element can be opened directly, {@code false}
+	 *         otherwise
+	 */
+	protected boolean isElementOpenable(Object element) {
+		return false;
+	}
+
 	public void openParentDropDown(Object element) {
 	    BreadcrumbItem item = (BreadcrumbItem) doFindItem(element);
 	    if (item == null)

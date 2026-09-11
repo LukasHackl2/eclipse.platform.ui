@@ -184,12 +184,14 @@ class BreadcrumbItemDropDown {
 		fMenuIsShown = false;
 		fEnabled = true;
 
+		String showChildrenText = JFaceResources.getString("BreadcrumbItemDropDown_showDropDownMenu_action_toolTip"); //$NON-NLS-1$
+
 		fToolBar = new ToolBar(composite, SWT.FLAT);
 		fToolBar.setLayoutData(new GridData(SWT.END, SWT.CENTER, false, false));
 		fToolBar.getAccessible().addAccessibleListener(new AccessibleAdapter() {
 			@Override
 			public void getName(AccessibleEvent event) {
-				event.result = JFaceResources.getString("BreadcrumbItemDropDown_showDropDownMenu_action_toolTip"); //$NON-NLS-1$
+				event.result = showChildrenText;
 			}
 		});
 		ToolBarManager manager = new ToolBarManager(fToolBar);
@@ -213,8 +215,7 @@ class BreadcrumbItemDropDown {
 
 		showDropDownMenuAction.setImageDescriptor(new AccessibleArrowImage(isLTR()));
 		showDropDownMenuAction
-				.setToolTipText(JFaceResources.getString(
-						"BreadcrumbItemDropDown_showDropDownMenu_action_toolTip")); //$NON-NLS-1$
+				.setToolTipText(showChildrenText);
 		manager.add(showDropDownMenuAction);
 
 		manager.update(true);
@@ -386,7 +387,7 @@ class BreadcrumbItemDropDown {
 						boolean showHandPointer = false;
 						if (o != null) {
 							Object itemData = o.getData();
-							showHandPointer = itemData != null && !fDropDownViewer.isExpandable(itemData);
+							showHandPointer = itemData != null && fParent.getViewer().isElementOpenable(itemData);
 						}
 						tree.setCursor(showHandPointer ? tree.getDisplay().getSystemCursor(SWT.CURSOR_HAND) : null);
 					}
