@@ -747,6 +747,29 @@ public abstract class BreadcrumbViewer extends StructuredViewer {
 		return false;
 	}
 
+	/**
+	 * Creates the tree viewer used for the breadcrumb drop down.
+	 * <p>
+	 * Subclasses may override this method to provide a specialized
+	 * {@link TreeViewer}. The default implementation creates a standard
+	 * {@link TreeViewer}.
+	 * </p>
+	 *
+	 * @param parent the parent composite
+	 * @param style  the SWT style bits
+	 * @return the tree viewer used for the drop down
+	 */
+	protected TreeViewer createDropDownViewer(Composite parent, int style) {
+		return new TreeViewer(parent, style);
+	}
+
+	/**
+	 * Opens the drop down menu of the parent breadcrumb item for the given element.
+	 * Does nothing if the element is not shown in the breadcrumb or has no parent
+	 * item.
+	 *
+	 * @param element the element whose parent drop down should be opened
+	 */
 	public void openParentDropDown(Object element) {
 	    BreadcrumbItem item = (BreadcrumbItem) doFindItem(element);
 	    if (item == null)

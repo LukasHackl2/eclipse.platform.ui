@@ -309,7 +309,7 @@ class BreadcrumbItemDropDown {
 		gridLayout.marginWidth = 0;
 		composite.setLayout(gridLayout);
 
-		fDropDownViewer = new TreeViewer(composite, SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL);
+		fDropDownViewer = fParent.getViewer().createDropDownViewer(composite, SWT.SINGLE | SWT.H_SCROLL | SWT.V_SCROLL);
 		fDropDownViewer.setUseHashlookup(true);
 
 		final Tree tree = (Tree) fDropDownViewer.getControl();
