@@ -17,7 +17,6 @@ package org.eclipse.jface.viewers;
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.ToolBarManager;
-import org.eclipse.jface.dialogs.DialogSettings;
 import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.jface.resource.CompositeImageDescriptor;
 import org.eclipse.jface.resource.JFaceResources;
@@ -169,8 +168,6 @@ class BreadcrumbItemDropDown {
 	private final BreadcrumbItem fParent;
 	private final Composite fParentComposite;
 	private final ToolBar fToolBar;
-
-	private final IDialogSettings fDialogSettings = new DialogSettings(DIALOG_SETTINGS);
 
 	private boolean fMenuIsShown;
 	private boolean fEnabled;
@@ -622,7 +619,11 @@ class BreadcrumbItemDropDown {
 	}
 
 	private IDialogSettings getDialogSettings() {
-		return fDialogSettings;
+		IDialogSettings viewerSettings = fParent.getViewer().getDialogSettings();
+		IDialogSettings settings = viewerSettings.getSection(DIALOG_SETTINGS);
+		if (settings == null)
+			settings = viewerSettings.addNewSection(DIALOG_SETTINGS);
+		return settings;
 	}
 
 	private int getMaxHeight() {

@@ -21,6 +21,8 @@ import java.util.List;
 
 import org.eclipse.core.runtime.Assert;
 import org.eclipse.core.runtime.ListenerList;
+import org.eclipse.jface.dialogs.DialogSettings;
+import org.eclipse.jface.dialogs.IDialogSettings;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.DisposeEvent;
 import org.eclipse.swt.events.MenuDetectEvent;
@@ -59,6 +61,7 @@ public abstract class BreadcrumbViewer extends StructuredViewer {
 	private Image fGradientBackground;
 	private BreadcrumbItem fSelectedItem;
 	private ILabelProvider fToolTipLabelProvider;
+	private final IDialogSettings fDialogSettings = new DialogSettings("BreadcrumbViewer"); //$NON-NLS-1$
 
 	/**
 	 * Create a new <code>BreadcrumbViewer</code>.
@@ -782,5 +785,18 @@ public abstract class BreadcrumbViewer extends StructuredViewer {
 	    BreadcrumbItem parent = getItem(index - 1);
 	    if (parent != null)
 	        parent.openDropDownMenu();
+	}
+
+	/**
+	 * Returns the dialog settings used to store breadcrumb UI state.
+	 * <p>
+	 * Subclasses may override this method to provide persistent dialog settings.
+	 * The default implementation returns non-persistent settings.
+	 * </p>
+	 *
+	 * @return the dialog settings
+	 */
+	protected IDialogSettings getDialogSettings() {
+		return fDialogSettings;
 	}
 }
